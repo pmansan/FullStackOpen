@@ -1,31 +1,32 @@
 let persons = [
-  { 
+  {
     "id": 1,
-    "name": "Arto Hellas", 
+    "name": "Arto Hellas",
     "number": "040-123456"
   },
-  { 
+  {
     "id": 2,
-    "name": "Ada Lovelace", 
+    "name": "Ada Lovelace",
     "number": "39-44-5323523"
   },
-  { 
+  {
     "id": 3,
-    "name": "Dan Abramov", 
+    "name": "Dan Abramov",
     "number": "12-43-234345"
   },
-  { 
+  {
     "id": 4,
-    "name": "Mary Poppendieck", 
+    "name": "Mary Poppendieck",
     "number": "39-23-6423122"
   }
 ]
 
 const express = require('express')
-const cors = require('cors')
 const app = express()
 const morgan = require('morgan')
+const cors = require('cors')
 app.use(cors())
+app.use(express.static('dist'))
 
 morgan.token('body', (req, res) => JSON.stringify(req.body))
 
@@ -77,13 +78,13 @@ const generateId = () => {
 app.post('/api/persons', (request, response) => {
   const body = request.body
   if (!body.name || !body.number) {
-    return response.status(400).json({ 
-      error: 'name or number missing' 
+    return response.status(400).json({
+      error: 'name or number missing'
     })
   }
   if (persons.some(person => person.name === body.name)) {
-    return response.status(400).json({ 
-      error: 'name must be unique' 
+    return response.status(400).json({
+      error: 'name must be unique'
     })
   }
   const person = {

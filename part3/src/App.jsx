@@ -15,8 +15,6 @@ const App = () => {
   const [exitMessage, setExitMessage] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
 
-
-
   useEffect(() => {
     personService.getAll().then(response => {
       setPersons(response)
